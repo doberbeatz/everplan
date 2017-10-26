@@ -1,10 +1,10 @@
 import React, {Component} from 'react'
 import {
-    BrowserRouter as Router,
+    StaticRouter as Router,
     Route
 } from 'react-router-dom'
-import FeedPage from "./pages/FeedPage";
-import LoginPage from "./pages/LoginPage";
+import FeedPage from "./pages/FeedPage.jsx"
+import LoginPage from "./pages/LoginPage.jsx"
 
 class App extends Component {
     render() {

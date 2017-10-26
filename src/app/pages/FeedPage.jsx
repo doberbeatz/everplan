@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
-import './FeedPage.css'
-import NavbarTop from '../components/NavbarTop'
+import NavbarTop from '../components/NavbarTop.jsx'
 import {Container, Segment, Header, Divider, Button} from 'semantic-ui-react'
 
 class FeedPage extends Component {
