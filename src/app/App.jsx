@@ -1,20 +1,17 @@
 import React, {Component} from 'react'
-import {
-    StaticRouter as Router,
-    Route
-} from 'react-router-dom'
+import Route from 'react-router-dom'
+import 'semantic-ui-css/semantic.min.css';
 import FeedPage from "./pages/FeedPage.jsx"
 import LoginPage from "./pages/LoginPage.jsx"
+import {Switch} from "react-router";
 
 class App extends Component {
     render() {
         return (
-            <Router>
-                <div>
-                    <Route exact path="/" component={FeedPage}/>
-                    <Route path="/login" component={LoginPage}/>
-                </div>
-            </Router>
+            <Switch>
+                <Route exact path="/" component={FeedPage}/>
+                <Route path="/login" component={LoginPage}/>
+            </Switch>
         )
     }
 }

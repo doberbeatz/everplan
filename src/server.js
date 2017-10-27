@@ -1,19 +1,16 @@
+import path from 'path';
 import express from 'express';
-import React from 'react';
-import { renderToString } from 'react-dom/server';
-import App from './app/App.jsx';
 import template from './template';
 
 const server = express();
-server.use('/assets', express.static('assets'));
+server.use('/assets', express.static(path.join(__dirname, 'assets')));
 
 server.get('/', (req, res) => {
-    const appString = renderToString(<App />);
-
     res.send(template({
-        body: appString,
-        title: 'Hello World from the server'
+        title: 'Main Page'
     }));
 });
 
-server.listen(8080);
+server.listen(8080, () => {
+    console.log('Example app listening on port 3000!')
+});

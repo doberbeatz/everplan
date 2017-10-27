@@ -1,14 +1,13 @@
-export default ({ body, title }) => {
+export default ({ title }) => {
     return `
     <!DOCTYPE html>
     <html>
       <head>
         <title>${title}</title>
-        <link rel="stylesheet" href="/assets/index.css" />
       </head>
       
       <body>
-        <div id="root">${body}</div>
+        <div id="root"></div>
       </body>
       
       <script src="/assets/bundle.js"></script>
