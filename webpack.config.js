@@ -1,55 +1,56 @@
 const path = require('path');
+const webpack = require('webpack');
 
-const rules = [
-    {
-        test: /.jsx?$/,
-        exclude: /node_modules/,
-        use: [
+const env = process.env.NODE_ENV || 'development';
+
+const commonExports = {
+    module: {
+        rules: [
             {
-                loader: 'babel-loader',
-                options: {
-                    cacheDirectory: true,
-                }
-            }
-            ]
+                test: /\.jsx?$/,
+                loader: 'babel-loader?cacheDirectory=true',
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!url-loader!css-loader?localIdentName=[hash:8]&modules=true',
+            },
+            {
+                test: /\.(png|svg|ttf|eot|woff|woff2|otf)$/,
+                loader: 'url-loader?limit=100000',
+            },
+        ]
     },
-    {
-        test: /\.css$/,
-        loader: "style-loader!css-loader"
-    }
-];
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env': {
+                NODE_ENV: JSON.stringify(env),
+            },
+        }),
+    ],
+};
 
 module.exports = [
-    {
-        target: 'node',
-        entry: path.resolve(__dirname, 'src/server.js'),
-        output: {
-            path: path.resolve(__dirname, 'dist'),
-            filename: 'server.js'
-        },
-        module: {
-            rules: rules
+    Object.assign({},
+        commonExports,
+        {
+            target: 'node',
+            entry: path.resolve(__dirname, 'src/server.js'),
+            output: {
+                path: path.resolve(__dirname, 'dist'),
+                filename: 'server.js'
+            },
         }
-    },
-    {
-        target: 'web',
-        entry: path.resolve(__dirname, 'src/client.jsx'),
-        output: {
-            path: path.resolve(__dirname, 'dist/assets'),
-            filename: 'bundle.js',
-        },
-        module: {
-            rules: rules.concat([{
-                test: /\.(png|svg|ttf|eot|woff|woff2|otf)$/,
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 8192
-                        }
-                    }
-                ]
-            }])
+    ),
+    Object.assign({},
+        commonExports,
+        {
+            target: 'web',
+            entry: path.resolve(__dirname, 'src/client.jsx'),
+            output: {
+                path: path.resolve(__dirname, 'dist/assets'),
+                filename: 'bundle.js',
+            },
         }
-    }
+    ),
 ];
