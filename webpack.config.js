@@ -1,56 +1,59 @@
 const path = require('path');
-const webpack = require('webpack');
-
-const env = process.env.NODE_ENV || 'development';
-
-const commonExports = {
-    module: {
-        rules: [
-            {
-                test: /\.jsx?$/,
-                loader: 'babel-loader?cacheDirectory=true',
-                exclude: /node_modules/,
-            },
-            {
-                test: /\.css$/,
-                loader: 'style-loader!url-loader!css-loader?localIdentName=[hash:8]&modules=true',
-            },
-            {
-                test: /\.(png|svg|ttf|eot|woff|woff2|otf)$/,
-                loader: 'url-loader?limit=100000',
-            },
-        ]
-    },
-    plugins: [
-        new webpack.DefinePlugin({
-            'process.env': {
-                NODE_ENV: JSON.stringify(env),
-            },
-        }),
-    ],
-};
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = [
-    Object.assign({},
-        commonExports,
-        {
-            target: 'node',
-            entry: path.resolve(__dirname, 'src/server.js'),
-            output: {
-                path: path.resolve(__dirname, 'dist'),
-                filename: 'server.js'
-            },
-        }
-    ),
-    Object.assign({},
-        commonExports,
-        {
-            target: 'web',
-            entry: path.resolve(__dirname, 'src/client.jsx'),
-            output: {
-                path: path.resolve(__dirname, 'dist/assets'),
-                filename: 'bundle.js',
-            },
-        }
-    ),
+    {
+        target: 'node',
+        entry: path.resolve(__dirname, 'src/server.js'),
+        output: {
+            path: path.resolve(__dirname, 'dist'),
+            filename: 'server.js'
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    loader: 'babel-loader?cacheDirectory=true',
+                    exclude: /node_modules/,
+                },
+                {test: /\.css$/, loader: 'ignore-loader'},
+                {test: /\.(png|svg|ttf|eot|woff|woff2|otf)$/, loader: 'ignore-loader'},
+            ]
+        },
+    },
+    {
+        target: 'web',
+        entry: path.resolve(__dirname, 'src/client.js'),
+        output: {
+            path: path.resolve(__dirname, 'dist/assets'),
+            filename: 'bundle.js',
+        },
+        module: {
+            rules: [
+                {
+                    test: /\.jsx?$/,
+                    loader: 'babel-loader?cacheDirectory=true',
+                    exclude: /node_modules/,
+                },
+                {
+                    test: /\.css$/,
+                    loader: ExtractTextPlugin.extract(
+                        'css-loader?minimize',
+                        'style-loader',
+                        'postcss-loader',
+                        'url-loader'
+                    ),
+                },
+                {
+                    test: /\.(png|svg|ttf|eot|woff|woff2|otf)$/,
+                    loader: 'url-loader?limit=100000',
+                },
+            ]
+        },
+        plugins: [
+            new ExtractTextPlugin("bundle.css", {
+                allChunks: true
+            }),
+        ],
+    }
 ];

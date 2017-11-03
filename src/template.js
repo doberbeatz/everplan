@@ -4,7 +4,7 @@ export default ({ title, body }) => {
     <html>
       <head>
         <title>${title}</title>
-        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.12/semantic.min.css"/>
+        <link rel="stylesheet" href="/assets/bundle.css"/>
       </head>
       
       <body>

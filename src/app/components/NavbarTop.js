@@ -1,7 +1,7 @@
 import React from 'react'
 import { Menu, Container, Dropdown } from 'semantic-ui-react'
 
-const NavbarTop = () => (
+const NavbarTop = (props) => (
     <div style={{ marginBottom: '5em' }}>
         <Menu fixed='top' inverted>
             <Container>
