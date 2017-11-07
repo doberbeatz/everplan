@@ -1,8 +1,10 @@
 import {createStore, combineReducers} from 'redux'
-import userReducer from "./reducers/userRedcer"
+import profile from "./reducers/profileReducer"
+import events from "./reducers/eventReducer";
 
 export default createStore(
     combineReducers({
-        user: userReducer
+        profile,
+        events
     })
 )

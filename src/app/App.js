@@ -1,5 +1,5 @@
 import React from 'react'
-import {Switch, Route} from 'react-router'
+import { Switch, Route } from 'react-router'
 
 import 'semantic-ui-css/semantic.min.css'
 import FeedPage from './pages/FeedPage'

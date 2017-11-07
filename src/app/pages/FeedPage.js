@@ -1,12 +1,20 @@
 import React from 'react'
-import NavbarTop from '../components/NavbarTop'
-import PostListContainer from '../containers/PostListContainer'
+import {Divider} from "semantic-ui-react";
+
+import Header from "../components/Header";
+import Body from "../components/Body";
+import EventAddForm from "../containers/EventAddForm";
+import EventList from "../containers/EventList";
 
 const FeedPage = () => {
     return (
         <div>
-            <NavbarTop/>
-            <PostListContainer />
+            <Header/>
+            <Body>
+                <EventAddForm />
+                <Divider horizontal />
+                <EventList />
+            </Body>
         </div>
     )
 };

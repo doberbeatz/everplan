@@ -2,7 +2,7 @@ import express from 'express'
 import React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { StaticRouter } from 'react-router'
-import {Provider} from 'react-redux'
+import { Provider } from 'react-redux'
 
 import App from './app/App'
 import store from './redux/store'
@@ -19,7 +19,7 @@ const html = ReactDOMServer.renderToString(
     </Provider>
 );
 
-server.get('*', (req, res) => {
+server.get('/*', (req, res) => {
     res.send(template({
         title: 'Main Page',
         body: html
