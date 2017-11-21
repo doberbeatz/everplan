@@ -1,11 +1,22 @@
 import {CHANGE_USERNAME} from '../actions/profileActions'
 
-const profile = (state = {}, action) => {
+const initialState = {
+    isLoggedIn: true,
+    userData: {
+        name: 'Roman',
+        age: 27,
+    },
+};
+
+const profile = (state = initialState, action) => {
     switch (action.name) {
         case CHANGE_USERNAME:
             return {
                 ...state,
-                name: action.name
+                userData: {
+                    ...state.userData,
+                    name: action.name
+                }
             };
             break;
         default:

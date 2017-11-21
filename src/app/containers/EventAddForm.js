@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from "react-redux";
-import { Button, Form, Segment } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import { createEvent } from "../../redux/actions/eventActions";
 
 const PostAddForm = ({ dispatch }) => {
@@ -15,7 +15,7 @@ const PostAddForm = ({ dispatch }) => {
     return (
         <Form onSubmit={handleSubmit}>
             <Form.TextArea label='Text' name='text' placeholder='Tell us more about you...'/>
-            <Button type='submit'>Add</Button>
+            <Button type='submit' size='small'>Add</Button>
         </Form>
     )
 };

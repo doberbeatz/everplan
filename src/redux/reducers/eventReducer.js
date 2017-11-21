@@ -1,23 +1,29 @@
-import {EVENTS_CREATE, EVENTS_FETCHED} from '../actions/eventActions'
+import {EVENTS_CREATE, EVENTS_LOADING} from '../actions/eventActions'
 
-let eventsList = [
-    {
-        id: 1,
-        text: 'Text'
-    }
-];
+const initialState = {
+    items: [],
+    isLoading: true
+};
 
-const events = (state = [], action) => {
+const events = (state = initialState, action) => {
     switch (action.type) {
         case EVENTS_CREATE:
-            return [
+            return {
                 ...state,
-                {
-                    id: action.id,
-                    text: action.text
-                }
-            ];
-        case EVENTS_FETCHED:
+                items: [
+                    ...state.items,
+                    {
+                        id: action.id,
+                        text: action.text
+                    }
+                ]
+            };
+        case EVENTS_LOADING:
+            return {
+                ...state,
+                isLoading: action.isLoading,
+                items: action.items
+            };
         default:
             return state
     }

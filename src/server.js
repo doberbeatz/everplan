@@ -5,21 +5,23 @@ import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
 
 import App from './app/App'
-import store from './redux/store'
+import configureStore from './redux/store'
 import template from './template'
 
 const server = express();
+const store = configureStore();
+
 server.use('/assets', express.static('dist/assets'));
 
-const html = ReactDOMServer.renderToString(
-    <Provider store={store}>
-        <StaticRouter context={{}}>
-            <App/>
-        </StaticRouter>
-    </Provider>
-);
-
 server.get('/*', (req, res) => {
+    const html = ReactDOMServer.renderToString(
+        <Provider store={store}>
+            <StaticRouter location={req.url} context={{}}>
+                <App/>
+            </StaticRouter>
+        </Provider>
+    );
+
     res.send(template({
         title: 'Main Page',
         body: html
