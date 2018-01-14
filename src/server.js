@@ -5,6 +5,7 @@ import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
 
 import App from './app/App'
+import profileService from './services/profile'
 import configureStore from './redux/store'
 import template from './template'
 

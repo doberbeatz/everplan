@@ -13,8 +13,10 @@ const events = (state = initialState, action) => {
                 items: [
                     ...state.items,
                     {
-                        id: action.id,
-                        text: action.text
+                        [action.id]: {
+                            id: action.id,
+                            text: action.text
+                        }
                     }
                 ]
             };
